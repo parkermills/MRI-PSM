@@ -6,22 +6,49 @@
 ---------------------
       Contents
 ---------------------
-0) Dependencies
-1) PSM Process
-2) PSM Data Structure
+1) Compatibility
+2) Version History
+3) Dependencies
+4) PSM Process
+5) PSM Data Structure
 
 
 
 -----------------
-0) Dependencies
+1) Compatibility
+-----------------
+PSM runs in MATLAB and has been tested in:
+	-Windows Vista 64-bit (no pre-processing, see note below)
+	-Windows 7 64-bit (no pre-processing, see note below)
+	-Mac OS X
+	-Ubuntu 10.02
+
+Note: PSM cannot complete MRI data pre-processing on Windows platforms. Its phase unwrapping pre-processing step depends on a binary executable that runs only in Mac OS X and Linux. 
+
+
+
+
+-----------------
+2) Version History
+-----------------
+PDQ-8-27-12
+Original posting of code, no dependencies included, sparse documentation.
+
+
+
+
+-----------------
+3) Dependencies
 -----------------
 PSM is dependent on the following MATLAB functions created by 3rd parties:
 
 XXXXXXXXXXXX
 
 
+
+
 -------------------------------------
-1) PSM Process
+4) PSM Process
 -------------------------------------
 
 A) Import data
@@ -34,7 +61,7 @@ MRIdata = XXXXXXXXXXXXXXXXX
 
 
 -------------------------------------
-2) PSM Data Structure
+5) PSM Data Structure
 -------------------------------------
           .PSM                 Results from a run of PSM - Phase Slope Magnitude
               .PSM.mag                 (3D Float)    Phase slope magnitude image   (How rapidly phase is changing in space)
