@@ -1,41 +1,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % @file PSM.m
 % @author Parker Mills, Ahrens Lab, Carnegie Mellon
-% @brief Creates phase slope magnitude (PSM), angle (PSA), Angle Coherence (AC)
-%        and Composite images based on provided phase image. 2nd and 3rd derivatives
-%        were not found to be useful for analysis of phase changes in MR images, but
-%        perhaps trying it with other image types or biological samples my prove of use.
+%
+% @brief Creates phase slope magnitude (PSM), phase slope angle (PSA), 
+%        phase slope Angle Coherence (AC), and phase slope Composite images
+%        based on provided phase image.
+%
+%        2nd and 3rd derivatives of phase slope were not found to be useful for analysis 
+%        of phase changes in MR images, but perhaps trying it with other image types 
+%        or biological samples may prove useful.
 %
 % ==================== INPUT PARAMETERS ======================
-% @param    image             (2D/3D Float)    Phase-unwrapped, optionally high-pass filtered image
+% @param    image             (2D/3D Float)    Phase image that has been phase-unwrapped and (optionally) high-pass filtered
+%
 % @param    dimensionality    (String)         '2d': Calculation performed slicewise in 2D 
 %                                              '3d': Calculation performed in full 3D
 %
 % ==================== RETURNED DATA =========================
 %
-% ====Conventional PSM Products (Magnitude, x-,y-,z-components) ====
-% @return  PSMrun.PSM.mag        (2D/3D Float)  Phase slope magnitude image   (*Main product* - Magnitude of phase change over space)
-%          PSMrun.PSM.x          (2D/3D Float)  X-direction phase slope magnitude image   (X-component of phase change over space (1st derivative))
-%          PSMrun.PSM.y          (2D/3D Float)  Y-direction phase slope magnitude image   (Y-component of phase change over space (1st derivative))
-%          PSMrun.PSM.z          (2D/3D Float)  Z-direction phase slope magnitude image   (Z-component of phase change over space (1st derivative))
+% ==== Published Products (phase slope magnitude and its x-, y-, and z-components) ====
+% @return  PSMrun.PSM.mag   (2D/3D Float)  Phase slope magnitude image   (*Main product* - Magnitude of phase change over space)
+%          PSMrun.PSM.x     (2D/3D Float)  X-direction phase slope magnitude image   (X-component of phase change over space (1st derivative))
+%          PSMrun.PSM.y     (2D/3D Float)  Y-direction phase slope magnitude image   (Y-component of phase change over space (1st derivative))
+%          PSMrun.PSM.z     (2D/3D Float)  Z-direction phase slope magnitude image   (Z-component of phase change over space (1st derivative))
 %
-% ====Unpublished/Experimental PSM Products (Phase slope angle, angle coherence, and composite images)====
+% ==== Unpublished and Experimental Products (Phase slope angle, phase slope angle coherence, and phase slope composite images)====
 % @return  PSMrun.PSA        (2D/3D Float)  Phase slope angle image       (The angle (in radians) of the direction in which phase is changing over space)
 % @return  PSMrun.AC         (2D/3D Float)  Phase angle coherence image   (Measure of how consistent the phase slope angle (PSA) is in a 3x3 pixel region. Calculated only for x-y plane, and not for z.)
 % @return  PSMrun.Composite  (2D/3D Float)  Composite image               (Product of PSM.mag and AC images (PSM .* AC). In theory, highlights rapid spatial changes in phase that are all happening in the same direction!)
 %
 %
 % ==================== ASSUMPTIONS ======================
-% @assume Input data is phase data that has been unwrapped ([0, 2*pi] boundaries removed), and optionally high-pass filtered
+% @assume Input image data is a phase image that has undergone phase unwrapping (all [0, 2*pi] boundaries removed), and (optionally) high-pass filtered
 %
 % ==================== DEPENDENCIES ==================
-% @depend myfun.m
-% @depend
+% @depend None
 %
 % ==================== EXAMPLE USAGE ========================
-% PSMrun = PSM(image, dimensionality)
-% PSMrun = PSM(unwrapped_phase, '2d')
-% PSMrun = PSM(unwrapped_phase, '3d')
+% PSMrun = PSM(phantom_unwrapped_phase, '2d')
+% PSMrun = PSM(brain_unwrapped_phase, '3d')
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -43,13 +46,19 @@
 function PSMrun = PSM(image, dimensionality)
 
 
-%% Preferences
-pref_diff_level = 1; %Which derivative to calculate (1 = first derivative, 2 = 2nd derivative, etc.)
-pref_calculate_experimental = 0; % Calculating experimental images computationally intensive for large 3D volumes
+%% Preferences %%%
+
+% Which derivative to calculate (1 = first derivative, 2 = 2nd derivative, etc.)
+pref_diff_level = 1; 
+
+% Calculating the experimental and unpublished products described above is
+% computationally intensive for large 3D volumes. Change this value to '0' 
+% to skip generating these products.
+pref_calculate_experimental = 1; 
 
 
 
-%% Gather information and perform sanity checks
+%% Gather information and perform sanity checks %%%
 
 % Get dimensions
 [x_dim y_dim z_dim] = size(image);
