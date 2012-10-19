@@ -58,20 +58,27 @@ pref_calculate_experimental = 1;
 
 
 
+
 %% Gather information and perform sanity checks %%%
 
 % Get dimensions
 [x_dim y_dim z_dim] = size(image);
 
+% If 1D image is given
+if(ndims(image) == 1)
+    error('PSM: 1D images not supported. Quitting.');
+end
+
 % If 2D image is given and user requested 3D PSM
-if(ndims(image) == 2 && strcmp(dimensionality,'3d'))
+if(ndims(image) == 2 && strcmp(dimensionality, '3d'))
     error('PSM: 3D computation requested for 2D image. Quitting.');
 end
 
 % Ensure dimensionality is either 2D or 3D
-if(~strcmp(dimensionality,'2d') && ~strcmp(dimensionality,'3d'))
-    error('PSM: dimensionality must be "2d" or "3d". Quitting.');
+if(~strcmp(dimensionality, '2d') && ~strcmp(dimensionality, '3d'))
+    error('PSM: Dimensionality must be "2d" or "3d". Quitting.');
 end
+
 
 
 
@@ -79,24 +86,28 @@ end
 % Also reduces floating point precision from double to single
 PSMrun.PSM.x = single(diff(image, pref_diff_level, 1));
 PSMrun.PSM.y = single(diff(image, pref_diff_level, 2));
-if(strcmp(dimensionality,'3d'))
+if(strcmp(dimensionality, '3d'))
     PSMrun.PSM.z = single(diff(image, pref_diff_level, 3));
 end
 
 
 
-%% Preallocate results
+%% Preallocate result matrices
+new_x_dim = x_dim - pref_diff_level;
+new_y_dim = y_dim - pref_diff_level;
+new_z_dim = z_dim - pref_diff_level;
 if(strcmp(dimensionality,'2d'))
-    PSMrun.PSM.mag   = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim);
-    PSMrun.PSA       = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim);
-    PSMrun.AC        = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim);
-    PSMrun.Composite = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim);
+    PSMrun.PSM.mag   = ones(new_x_dim, new_y_dim, z_dim);
+    PSMrun.PSA       = ones(new_x_dim, new_y_dim, z_dim);
+    PSMrun.AC        = ones(new_x_dim, new_y_dim, z_dim);
+    PSMrun.Composite = ones(new_x_dim, new_y_dim, z_dim);
 else
-    PSMrun.PSM.mag   = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim - pref_diff_level);
-    PSMrun.PSA       = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim - pref_diff_level);
-    PSMrun.AC        = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim - pref_diff_level);
-    PSMrun.Composite = ones(x_dim-pref_diff_level, y_dim-pref_diff_level, z_dim - pref_diff_level);
+    PSMrun.PSM.mag   = ones(new_x_dim, new_y_dim, new_z_dim);
+    PSMrun.PSA       = ones(new_x_dim, new_y_dim, new_z_dim);
+    PSMrun.AC        = ones(new_x_dim, new_y_dim, new_z_dim);
+    PSMrun.Composite = ones(new_x_dim, new_y_dim, new_z_dim);
 end
+
 
 
 
@@ -119,6 +130,7 @@ end
 
 
 
+
 %% Compute Angle Coherence (AC) and Composite images
 if(pref_calculate_experimental)
     if(strcmp(dimensionality,'3d'))
@@ -135,6 +147,6 @@ end
 
 
 
-%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
 %    EOF
 %%%%%%%%%%%%%%%%%
