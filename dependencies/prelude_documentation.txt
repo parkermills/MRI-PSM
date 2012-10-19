@@ -1,0 +1,3 @@
+PRELUDE documentation can be found here:
+
+http://fsl.fmrib.ox.ac.uk/fsl/fsl-4.1.9/fugue/prelude.html
