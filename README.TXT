@@ -10,7 +10,7 @@
 2) Version History
 3) Dependencies
 4) PSM Process
-
+5) More details!
 
 
 -----------------
@@ -76,3 +76,14 @@ A tutorial that follows this process can be found in TUTORIAL.TXT.
 3) (Optional) High-pass filter your phase-unwrapped data
 
 4) Run PSM
+
+
+
+
+---------------------
+5) More details!
+---------------------
+Details on PSM can be found in the PSM.m file itself.
+You may also be able to find additional information by contacting
+the Pittsburgh NMR Center for Biomedical Research by visiting
+https://www.cmu.edu/nmr-center/software-download/index.html
