@@ -65,7 +65,7 @@ pref_calculate_experimental = 1;
 [x_dim y_dim z_dim] = size(image);
 
 % If 1D image is given
-if(ndims(image) == 1)
+if(isvector(image) == 1)
     error('PSM: 1D images not supported. Quitting.');
 end
 
