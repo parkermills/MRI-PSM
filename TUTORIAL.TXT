@@ -1,2 +1,40 @@
 PSM Tutorial
 
+===== Contents =====
+1) Install PSM
+2) Load Tutorial Dataset
+3) Unwrap Phase Image
+4) Run PSM
+
+
+
+1) Install PSM
+Open MATLAB and choose "Set Path..." in the "File" menu.
+In the window tha topens, click "Add with Subfolders" and navigate to the directory/folder that contains the PSM code.
+Select this directory by clicking "Ok", then click "Save" to add these paths to MATLAB.
+PSM is now installed.
+
+
+
+2) Load Tutorial Dataset
+In MATLAB, run the commands:
+>> load cmu_gel_3_magnitude
+>> load cmu_gel_3_phase
+
+
+
+3) Unwrap Phase Image
+The phase image you imported has phase unwrapping artifacts!
+To remove these we'll export the phase image to NII format, then run PRELUDE to perform 3D phase unwrapping.
+This step can only be performed on a Linux or Mac OS X platform
+
+In MATLAB, run the commands:
+>> save_nii(make_nii(single(cmu_gel_3_phase)),'wrapped_phase');
+>> system('prelude_macosx -n 15 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
+>> load_nii('unwrapped_phase');
+>> unwrapped_phase = unwrapped_phase.img;
+
+
+
+4) Run PSM
+PSM_result = PSM(unwrapped_phase, '3d');
