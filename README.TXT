@@ -5,7 +5,7 @@
 
 ---------------------
       Contents
----------------------
+--------------------- 
 1) Compatibility
 2) Version History
 3) Dependencies
