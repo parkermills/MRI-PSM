@@ -28,9 +28,12 @@ The phase image you imported has phase unwrapping artifacts!
 To remove these we'll export the phase image to NII format, then run PRELUDE to perform 3D phase unwrapping.
 This step can only be performed on a Linux or Mac OS X platform
 
-In MATLAB, run the commands:
+In MATLAB, change your current directory to the folder that contains the PSM code (PSM.m), then run the commands:
 >> save_nii(make_nii(single(cmu_gel_3_phase)),'wrapped_phase');
+>> setenv('FSLOUTPUTTYPE','NIFTI_GZ');
+>> system('./dependencies/prelude_linux -n 15 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
 >> system('prelude_macosx -n 15 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
+(Wait 5 minutes for phase unwrapping to complete)
 >> load_nii('unwrapped_phase');
 >> unwrapped_phase = unwrapped_phase.img;
 
@@ -38,3 +41,5 @@ In MATLAB, run the commands:
 
 4) Run PSM
 PSM_result = PSM(unwrapped_phase, '3d');
+
+That's it!
