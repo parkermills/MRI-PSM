@@ -44,6 +44,9 @@ PRELUDE, is a binary executable that runs only in Mac OS X and Linux.
 -------------------
 2) Version History
 -------------------
+MRI-PSM-Oct-19-2012.zip
+Third posting of code, all dependencies included, tutorial and documentation included.
+
 PSM-8-27-2012.zip
 Second posting of code, some dependencies included, sparse documentation.
 
