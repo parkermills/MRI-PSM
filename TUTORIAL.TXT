@@ -29,11 +29,20 @@ To remove these we'll export the phase image to NII format, then run PRELUDE to 
 This step can only be performed on a Linux or Mac OS X platform
 
 In MATLAB, change your current directory to the folder that contains the PSM code (PSM.m), then run the commands:
+>> cmu_gel_3_mask = imfill(logical(cmu_gel_3_magnitude > 0.03),'holes');
+>> save_nii(make_nii(single(cmu_gel_3_magnitude)), 'magnitude');
+>> save_nii(make_nii(single(cmu_gel_3_mask)), 'mask');
 >> save_nii(make_nii(single(cmu_gel_3_phase)),'wrapped_phase');
->> setenv('FSLOUTPUTTYPE','NIFTI_GZ');
->> system('./dependencies/prelude_linux -n 15 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
->> system('prelude_macosx -n 15 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
-(Wait 5 minutes for phase unwrapping to complete)
+>> setenv('FSLOUTPUTTYPE', 'NIFTI_GZ');
+
+If you're on a linux platform, next run:
+>> system('./dependencies/prelude_linux -n 3 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
+
+Otherwise, if you're in Mac OS X, run this:
+>> system('./dependencies/prelude_macosx -n 3 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
+
+Then wait 5 minutes for phase unwrapping to complete, then run:
+
 >> load_nii('unwrapped_phase');
 >> unwrapped_phase = unwrapped_phase.img;
 
