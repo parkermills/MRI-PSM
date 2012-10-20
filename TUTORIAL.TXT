@@ -9,7 +9,7 @@ PSM Tutorial
 
 
 
-1) Install PSM
+1) ==== Install PSM ====
 Open MATLAB and choose "Set Path..." in the "File" menu.
 In the window tha topens, click "Add with Subfolders" and navigate to the directory/folder that contains the PSM code.
 Select this directory by clicking "Ok", then click "Save" to add these paths to MATLAB.
@@ -17,14 +17,14 @@ PSM is now installed.
 
 
 
-2) Load Tutorial Dataset
+2) ==== Load Tutorial Dataset ====
 In MATLAB, run the commands:
 >> load cmu_gel_3_magnitude
 >> load cmu_gel_3_phase
 
 
 
-3) Unwrap Phase Image
+3) ==== Unwrap Phase Image ====
 The phase image you imported has phase unwrapping artifacts!
 To remove these we'll export the phase image to NII format, then run PRELUDE to perform 3D phase unwrapping.
 This step can only be performed on a Linux or Mac OS X platform
@@ -40,7 +40,7 @@ If you're on a linux platform, next run:
 >> system('./dependencies/prelude_linux -n 3 -p wrapped_phase.hdr -a magnitude.hdr -m mask.hdr -f -o unwrapped_phase&');
 
 Otherwise, if you're in Mac OS X, run this:
->> system('./dependencies/prelude_macosx -n 3 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
+>> system('./dependencies/prelude_macosx -n 3 -p wrapped_phase.hdr -a magnitude.hdr -m mask.hdr -f -o unwrapped_phase&');
 
 Then wait 5 seconds for phase unwrapping to complete, then run:
 
@@ -49,12 +49,12 @@ Then wait 5 seconds for phase unwrapping to complete, then run:
 
 
 
-4) High-pass Filter the Unwrapped Phase
+4) ==== High-pass Filter the Unwrapped Phase ====
 >> high_pass_filtered_phase = high_pass(unwrapped_phase, 5, 0.1);
 
 
 
-4) Run PSM
+4) ==== Run PSM ====
 PSM_result = PSM(high_pass_filtered_phase, '3d');
 
-That's it!
+That's it! The PSM_result data structure (MATLAB object) contains products that are described in the file PSM.m
