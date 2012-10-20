@@ -10,7 +10,7 @@
 2) Version History
 3) Dependencies
 4) PSM Process
-5) More details!
+5) More details
 
 
 -----------------
@@ -57,6 +57,7 @@ PSM is dependent on the following:
 
 -MATLAB 2010a or newer
 -neighbor_differences.m (MATLAB file, included)
+-high_pass.m (MATLAB file, included)
 -prelude_linux (Binary executable - Linux, included)
 -prelude_macosx (Binary executable - MacOS, included)
 
@@ -81,9 +82,12 @@ A tutorial that follows this process can be found in TUTORIAL.TXT.
 
 
 ---------------------
-5) More details!
+5) More details
 ---------------------
 Details on PSM can be found in the PSM.m file itself.
+
+A tutorial can be found in the file TUTORIAL.txt.
+
 You may also be able to find additional information by contacting
 the Pittsburgh NMR Center for Biomedical Research by visiting
 https://www.cmu.edu/nmr-center/software-download/index.html
