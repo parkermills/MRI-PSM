@@ -36,14 +36,14 @@ In MATLAB, change your current directory to the folder that contains the PSM cod
 >> setenv('FSLOUTPUTTYPE', 'NIFTI_GZ');
 
 If you're on a linux platform, next run:
->> system('./dependencies/prelude_linux -n 3 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
+>> system('./dependencies/prelude_linux -n 3 -p wrapped_phase.hdr -a magnitude.hdr -m mask.hdr -f -o unwrapped_phase&');
 
 Otherwise, if you're in Mac OS X, run this:
 >> system('./dependencies/prelude_macosx -n 3 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
 
 Then wait 5 minutes for phase unwrapping to complete, then run:
 
->> load_nii('unwrapped_phase');
+>> unwrapped_phase = load_nii('unwrapped_phase.nii');
 >> unwrapped_phase = unwrapped_phase.img;
 
 
