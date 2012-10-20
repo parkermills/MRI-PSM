@@ -30,10 +30,10 @@ To remove these we'll export the phase image to NII format, then run PRELUDE to 
 This step can only be performed on a Linux or Mac OS X platform
 
 In MATLAB, change your current directory to the folder that contains the PSM code (PSM.m), then run the commands:
->> cmu_gel_3_mask = imfill(logical(cmu_gel_3_magnitude > 0.03),'holes');
->> save_nii(make_nii(single(cmu_gel_3_magnitude)), 'magnitude');
->> save_nii(make_nii(single(cmu_gel_3_mask)), 'mask');
->> save_nii(make_nii(single(cmu_gel_3_phase)),'wrapped_phase');
+>> cmu_gel_3_mask = imfill(logical(cmu_gel_3_magnitude > 0.03),'holes'); % Create a mask for the dataset
+>> save_nii(make_nii(single(cmu_gel_3_magnitude)), 'magnitude'); % Export the dataset's magnitude image
+>> save_nii(make_nii(single(cmu_gel_3_mask)), 'mask'); % Export the dataset's mask
+>> save_nii(make_nii(single(cmu_gel_3_phase)),'wrapped_phase'); % Export the dataset's phase image
 >> setenv('FSLOUTPUTTYPE', 'NIFTI_GZ');
 
 If you're on a linux platform, next run:
