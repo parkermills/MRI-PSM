@@ -1,9 +1,10 @@
 PSM Tutorial
 
-===== Contents =====
+===== Tutorial Outline =====
 1) Install PSM
 2) Load Tutorial Dataset
 3) Unwrap Phase Image
+4) High-pass Filter the Unwrapped Phase
 4) Run PSM
 
 
@@ -41,14 +42,19 @@ If you're on a linux platform, next run:
 Otherwise, if you're in Mac OS X, run this:
 >> system('./dependencies/prelude_macosx -n 3 -p wrapped_phase.hdr -a wrapped_phase.hdr -f -o unwrapped_phase&');
 
-Then wait 5 minutes for phase unwrapping to complete, then run:
+Then wait 5 seconds for phase unwrapping to complete, then run:
 
 >> unwrapped_phase = load_nii('unwrapped_phase.nii');
 >> unwrapped_phase = unwrapped_phase.img;
 
 
 
+4) High-pass Filter the Unwrapped Phase
+>> high_pass_filtered_phase = high_pass(unwrapped_phase, 5, 0.1);
+
+
+
 4) Run PSM
-PSM_result = PSM(unwrapped_phase, '3d');
+PSM_result = PSM(high_pass_filtered_phase, '3d');
 
 That's it!
