@@ -44,6 +44,9 @@ PRELUDE, is a binary executable that runs only in Mac OS X and Linux.
 -------------------
 2) Version History
 -------------------
+MRI-PSM-Oct-24-2014.zip
+Added subroutines folder with files used by MRI-PDQ. Might be unnecessary, but might provide utility.
+
 MRI-PSM-Oct-19-2012.zip
 Third posting of code, all dependencies included, tutorial and documentation included.
 
