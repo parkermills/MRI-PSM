@@ -10,10 +10,10 @@ PSM Tutorial
 
 
 1) ==== Install PSM ====
-Open MATLAB and choose "Set Path..." in the "File" menu.
-In the window tha topens, click "Add with Subfolders" and navigate to the directory/folder that contains the PSM code.
+Open MATLAB and choose "Set Path..." from the "File" menu (newer versions have 'Set Path' under the 'Home' tab)
+In the window that topens, click "Add with Subfolders" and navigate to the directory/folder that contains this PSM code.
 Select this directory by clicking "Ok", then click "Save" to add these paths to MATLAB.
-PSM is now installed.
+PSM can now be used by MATLAB.
 
 
 
